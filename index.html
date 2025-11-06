@@ -1,24 +1,47 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="vi">
 <head>
-    <title>TuitionFeeFollowing</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./app.css" />
+    <title>CLB Tri Thức Trẻ</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
-<body style="margin: 0; overflow: hidden">
-<div id="out">
-    <div class="avalonia-splash">
-        <h2>
-            <a href="#" target="_blank">
-                <img src="./logo-transparent.png" alt="My Logo" width="500" />
-            </a>
-        </h2>
+<body>
+    <div class="container">
+        <h1>📚 CLB Tri thức trẻ thu HP</h1>
+        <div class="main-content">
+            <div class="controls">
+                <div class="info-box">
+                    💡 Vui lòng nhập số điện thoại vào ô bên dưới, sau đó bấm "Tìm kiếm"
+                </div>
+                <div class="form-group">
+                    <div class="main-search">
+                        <label for="data">Số điện thoại</label>
+                        <label for="numMonth">Tháng (Nội dung CK)</label>
+                        <input id="data" type="text" maxlength="10" placeholder="Ví dụ: 0923XXX789"></input>
+                        <input type="number" id="numMonth" min="1" max="12"/>
+                    </div>
+                    <button id="search" type="button">🔍 Tìm kiếm</button>
+                </div>
+                <div id="lblSugg1" class="info-box">
+                    💡 Vui lòng chọn vào từng dòng trong bảng để tạo QR-Code chuyển khoản
+                </div>
+                <div class="table-container">
+                    <table id="tbl"></table>
+                </div>
+                <div id="lblSugg2" class="info-box">
+                    💡 Hoặc tạo một QR-Code tổng tiền duy nhất hãy bấm "Tạo QR-Code tổng hợp"
+                </div>
+                <button id="creQrSum" type="button">🔄 Tạo QR-Code tổng hợp</button>
+            </div>
+            <div class="preview">
+                <div id="canvas"></div>
+                <p id="qrSts" style="color: #666; text-align: left; font-size: 14px;"></p>
+                <button id="saveQrCode">⬇️ Lưu ảnh về máy</button>
+            </div>
+        </div>
     </div>
-</div>
-<script type='module' src="./main.js"></script>
+    <script src="script.js"></script>
+    <script src="any-qr.min.js"></script>
 </body>
-
 </html>
