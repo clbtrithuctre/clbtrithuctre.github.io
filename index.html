@@ -19,20 +19,33 @@
                         <label for="data">Số điện thoại</label>
                         <label for="numMonth">Tháng</label>
                         <input id="data" type="text" maxlength="10" placeholder="Ví dụ: 0923XXX789"></input>
-                        <input type="number" id="numMonth" min="1" max="12"/>
+                        <select id="numMonth">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
                     </div>
                     <button id="search" type="button">🔍 Tìm kiếm</button>
                 </div>
-                <div id="lblSugg1" class="info-box">
-                    💡 Vui lòng chọn vào từng dòng trong bảng để tạo QR-Code chuyển khoản (nhập "Tháng" phía trên)
+                <div id="lblSugg1" class="info-box" hidden>
+                    💡 Để tạo QR-Code chuyển khoản - Hãy bấm vào từng dòng bên dưới (chọn "Tháng" phía trên)
                 </div>
                 <div class="table-container">
                     <table id="tbl"></table>
                 </div>
-                <div id="lblSugg2" class="info-box">
-                    💡 Hoặc tạo một QR-Code tổng tiền duy nhất hãy bấm "Tạo QR-Code tổng hợp" (nhập "Tháng" phía trên)
+                <div id="lblSugg2" class="info-box" hidden>
+                    💡 Để tạo QR-Code TỔNG tiền duy nhất - Hãy bấm "Tạo QR-Code tổng hợp" (chọn "Tháng" phía trên)
                 </div>
-                <button id="creQrSum" type="button">🔄 Tạo QR-Code tổng hợp</button>
+                <button id="creQrSum" type="button" hidden>🔄 Tạo QR-Code tổng hợp</button>
             </div>
             <div class="preview">
                 <div id="canvas"></div>
