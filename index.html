@@ -19,6 +19,7 @@
                         <label for="data">Số điện thoại</label>
                         <label for="numMonth">Tháng</label>
                         <input id="data" type="text" maxlength="10" placeholder="Ví dụ: 0923XXX789"></input>
+                        <!-- <input type="number" id="numMonth" min="1" max="12"/> -->
                         <select id="numMonth">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -50,6 +51,9 @@
             <div class="preview">
                 <div id="canvas"></div>
                 <button id="saveQrCode">⬇️ Lưu ảnh về máy</button>
+                <div id="lblSugg2" class="info-box" hidden>
+                    💡 Nếu dùng 01 điện thoại duy nhất, hãy lưu ảnh QR-Code về máy và thực hiện Mở ảnh bằng ứng dụng ngân hàng.
+                </div>
             </div>
         </div>
     </div>

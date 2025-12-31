@@ -3,12 +3,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 5px;
   min-height: 100vh;
 }
+
 .container {
   max-width: 100vw;
   background: white;
@@ -17,17 +19,25 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   overflow-y: visible;
 }
+
 h1 {
   text-align: center;
   color: #333;
   margin-bottom: 10px;
   font-size: 2em;
 }
+
 h2 {
   text-align: center;
   color: #333;
   margin-bottom: 10px;
 }
+
+/* --- CHANGED ---
+   Changed grid-template-columns to 2fr 1fr to make
+   .controls (first child) take 2/3 and 
+   .preview (second child) take 1/3 of the width.
+*/
 .main-content {
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -35,6 +45,7 @@ h2 {
   width: 100%;
   margin: 0;
 }
+
 .main-search,
 .main-search label,
 .main-search input {
@@ -45,6 +56,7 @@ h2 {
   margin-bottom: 0;
   padding: 0;
 }
+
 .controls {
   background: #f8f9fa;
   padding: 5px;
@@ -55,11 +67,14 @@ h2 {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+
 .preview {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   background: #f8f9fa;
   padding: 5px;
   border-radius: 15px;
@@ -67,9 +82,11 @@ h2 {
   top: 20px;
   min-width: 0;
 }
+
 .form-group {
   margin-bottom: 20px;
 }
+
 label {
   display: block;
   margin-bottom: 8px;
@@ -77,6 +94,7 @@ label {
   color: #555;
   font-size: 14px;
 }
+
 input[type="text"],
 input[type="number"],
 input[type="color"],
@@ -89,22 +107,26 @@ textarea {
   font-size: 14px;
   transition: border-color 0.3s;
 }
+
 input:focus,
 select:focus,
 textarea:focus {
   outline: none;
   border-color: #667eea;
 }
+
 textarea {
   resize: vertical;
   min-height: 80px;
   font-family: inherit;
 }
+
 .color-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
+
 .section-title {
   font-size: 16px;
   font-weight: 700;
@@ -113,9 +135,11 @@ textarea {
   padding-bottom: 10px;
   border-bottom: 2px solid #667eea;
 }
+
 .section-title:first-child {
   margin-top: 0;
 }
+
 button {
   width: 100%;
   padding: 12px;
@@ -129,12 +153,15 @@ button {
   transition: transform 0.2s;
   margin-top: 10px;
 }
+
 button:hover {
   transform: translateY(-2px);
 }
+
 button:active {
   transform: translateY(0);
 }
+
 #canvas {
   border: 3px solid #667eea;
   border-radius: 15px;
@@ -145,6 +172,7 @@ button:active {
   width: 100%;
   box-sizing: border-box;
 }
+
 #canvas canvas,
 #canvas svg {
   max-width: 100% !important;
@@ -152,16 +180,19 @@ button:active {
   display: block;
   margin: 0 auto;
 }
+
 .file-input-wrapper {
   position: relative;
   overflow: hidden;
   display: inline-block;
   width: 100%;
 }
+
 .file-input-wrapper input[type="file"] {
   position: absolute;
   left: -9999px;
 }
+
 .file-input-label {
   display: block;
   padding: 10px;
@@ -172,57 +203,91 @@ button:active {
   cursor: pointer;
   transition: background 0.3s;
 }
+
 .file-input-label:hover {
   background: #f0f0f0;
 }
+
 .range-input {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .range-input input[type="range"] {
   flex: 1;
 }
+
 .range-value {
   min-width: 40px;
   text-align: center;
   font-weight: 600;
   color: #667eea;
 }
+
+/* --- REMAINS UNCHANGED ---
+   This media query handles the vertical layout ("khi màn hình dọc")
+   by setting the grid to a single column (1fr).
+*/
 @media (max-width: 768px) {
   .main-content {
     grid-template-columns: 1fr;
   }
+
   .preview {
     position: static;
   }
+
   h1 {
     font-size: 1.5em;
   }
 }
+
+/* --- NEW / ADDED ---
+   Handle landscape orientation:
+   - Make body fill the viewport height without scrolling.
+   - Make the container and main content fill the available height.
+   - Make the .controls panel use the available grid height.
+*/
 @media (orientation: landscape) {
   body {
+    /* Fix body to viewport height and remove its scrollbar */
     height: 100vh;
     overflow: hidden;
   }
+
   .container {
-    height: 100%;
+    /* Make container fill the body's content area */
+    height: 100%; 
+    /* Use flex to manage children heights */
     display: flex;
     flex-direction: column;
   }
+
   .main-content {
+    /* Make main-content grid fill remaining vertical space */
     flex-grow: 1;
-    min-height: 0;
+    /* Important: min-height: 0 stops flex-grow from overflowing */
+    min-height: 0; 
   }
+
   .controls {
+    /* Override the vh-based max-height */
+    /* Set height to 100% of the grid row */
     height: 100%;
-    max-height: 100%;
+    max-height: 100%; /* Explicitly set max-height to 100% */
+    /* overflow-y: auto; is already set, which is correct */
   }
+
   .preview {
-    position: static;
+    /* Let's remove sticky positioning in landscape/fixed-height mode */
+    position: static; 
+    /* Make it fill the grid row's height */
     height: 100%;
   }
 }
+
+
 .info-box {
   background: #e3f2fd;
   border-left: 4px solid #2196f3;
@@ -232,65 +297,146 @@ button:active {
   font-size: 13px;
   color: #1976d2;
 }
+
+/* ==============================================
+   PHẦN BẢNG (TABLE) VÀ KHUNG CUỘN
+   ============================================== */
+
+/* * 1. Đây là vùng chứa cuộn MỚI, chỉ bao bọc bảng.
+ * Tất cả logic cuộn và chiều cao được áp dụng TẠI ĐÂY.
+ */
 .table-container {
-  overflow: auto;
+    /* Tạo bối cảnh cuộn ngang và dọc */
+    overflow: auto; 
+    
+    /* Đặt chiều cao tối đa cho VÙNG CUỘN này */
+    max-height: 25vh; /* Ví dụ: 60% chiều cao màn hình hoặc 35vh*/
 
-  max-height: 25vh;
-  margin-bottom: 15px;
-
-  border: 1px solid #ccc;
-  width: 100%;
-  max-width: 100%;
+    /* Thêm khoảng cách với nút bên dưới */
+    margin-bottom: 15px; 
+    
+    /* (Tùy chọn) Thêm viền để thấy rõ vùng cuộn */
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 100%;
 }
+
+/* * 2. Thiết lập cơ bản cho bảng
+ * Bảng sẽ chiếm 100% chiều rộng của .table-container
+ */
 .table-container table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%; 
+    border-collapse: collapse; 
 }
+
+/* * 3. Kiểu dáng chung cho các ô
+ */
 .table-container table th,
 .table-container table td {
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  white-space: nowrap;
-  text-align: left;
-  background-color: #ffffff;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    white-space: nowrap; /* Bắt buộc nội dung trên 1 dòng để cuộn ngang */
+    text-align: left;
+    background-color: #ffffff; /* Nền cho các ô <td> */
 }
+
+/* ==============================================
+   PHẦN CỐ ĐỊNH (STICKY)
+   ============================================== */
+
+/* * 4. Cố định dòng tên cột (Header)
+ * 'top: 0' giờ sẽ bám vào lề trên của '.table-container'
+ */
 .table-container table th {
-  position: sticky;
-  top: 0;
-  background-color: #f2f2f2;
-  z-index: 10;
+    position: sticky;
+    top: 0; 
+    background-color: #f2f2f2; 
+    z-index: 10; 
 }
+
+/* * 5. Cố định 3 cột đầu tiên
+ * 'left: 0' sẽ bám vào lề trái của '.table-container'
+ */
+
+/* --- Cột 1 --- */
+/* .table-container table th:nth-child(1),
+.table-container table td:nth-child(1) {
+    position: sticky;
+    left: 0; 
+    z-index: 5;
+
+    [ĐIỀU CHỈNH] Đặt chiều rộng cho cột 1
+    width: 50px; 
+    min-width: 0px;
+} */
+
+/* --- Cột 2 --- */
+/* .table-container table th:nth-child(2),
+.table-container table td:nth-child(2) {
+    position: sticky;
+    left: 0px; = width(col1)
+    z-index: 5;
+
+    [ĐIỀU CHỈNH] Đặt chiều rộng cho cột 2
+    width: 50px;
+    min-width: 50px;
+} */
+
+/* --- Cột 3 --- */
 .table-container table th:nth-child(3),
 .table-container table td:nth-child(3) {
-  position: sticky;
-  left: 0px;
-  z-index: 5;
-  min-width: 100px;
+    position: sticky;
+    left: 0px; /* = width(col1) + width(col2) */
+    z-index: 5;
+
+    /* [ĐIỀU CHỈNH] Đặt chiều rộng cho cột 3 */
+    /* width: 100px; */
+    min-width: 100px;
 }
+
+/* --- Cột 4 --- */
 .table-container table th:nth-child(4),
 .table-container table td:nth-child(4) {
-  position: sticky;
-  left: 150px;
-  z-index: 5;
-  width: 50px;
-  min-width: 50px;
+    position: sticky;
+    left: 150px; /* = width(col1) + width(col2) + width(col3) */
+    z-index: 5;
+
+    /* [ĐIỀU CHỈNH] Đặt chiều rộng cho cột 4 */
+    width: 50px;
+    min-width: 50px;
 }
+
+/* * 6. Xử lý chồng chéo (Góc trên-bên trái)
+ */
 .table-container table th:nth-child(1),
 .table-container table th:nth-child(2),
 .table-container table th:nth-child(3),
 .table-container table th:nth-child(4) {
-  background-color: #f2f2f2;
-  z-index: 15;
+    background-color: #f2f2f2; /* Giữ màu nền header */
+    z-index: 15; /* Phải cao nhất */
 }
+
+/* ==============================================
+   PHẦN MÀU DÒNG ĐƯỢC CHỌN (Đã tối ưu)
+   ============================================== */
+
+/* Quy tắc chung cho dòng được chọn (để đổi màu nền dòng không phải sticky) */
 .table-container table tr.selected {
-  background-color: #fffcb2 !important;
-  color: #333;
+    background-color: #fffcb2 !important; 
+    color: #333; 
 }
+
+/* Quy tắc cho TẤT CẢ các ô <td> trong dòng được chọn */
+/* Đảm bảo đè lên màu nền trắng mặc định */
 .table-container table tr.selected td {
-  background-color: #fffcb2 !important;
+    background-color: #fffcb2 !important; 
 }
+
+/* Quy tắc CỤ THỂ cho 3 ô sticky trong dòng được chọn */
+/* Cần thiết để đè lên màu nền mặc định của ô sticky (vốn là màu trắng) */
 .table-container table tr.selected td:nth-child(1),
 .table-container table tr.selected td:nth-child(2),
 .table-container table tr.selected td:nth-child(3) {
-  background-color: #fffcb2 !important;
+    /* Sử dụng màu cam đậm hơn một chút (hoặc giống màu nền chính) */
+    background-color: #fffcb2 !important; 
 }
